@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Categories - Category - 我的全新 Hugo 网站</title>
-        <link>https://William-ZXS.github.io/categories/</link>
-        <description>Categories - Category - 我的全新 Hugo 网站</description>
+        <title>Categories - Category - william-zxs的网站</title>
+        <link>https://william-zxs.github.io/categories/</link>
+        <description>Categories - Category - william-zxs的网站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>william_zxs@163.com (william-zxs)</managingEditor>
-            <webMaster>william_zxs@163.com (william-zxs)</webMaster><atom:link href="https://William-ZXS.github.io/categories/" rel="self" type="application/rss+xml" /></channel>
+            <webMaster>william_zxs@163.com (william-zxs)</webMaster><atom:link href="https://william-zxs.github.io/categories/" rel="self" type="application/rss+xml" /></channel>
 </rss>
