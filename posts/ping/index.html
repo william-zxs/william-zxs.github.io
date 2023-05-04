@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Ping -I指定网卡时和路由的关系 - william-zxs的网站</title><meta name="Description" content="william-zxs"><meta property="og:title" content="Ping -I指定网卡时和路由的关系" />
+<meta property="og:description" content="基本信息 ping的手册中是这么描述-I选项的： -I interface interface is either an address, or an interface name. If interface is an address, it sets source address to specified interface address. If interface in an interface name, it sets source interface to specified interface. For IPv6, when doing ping to a link-local scope address," />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://william-zxs.github.io/posts/ping/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-03T23:14:56+08:00" />
+<meta property="article:modified_time" content="2023-05-03T23:14:56+08:00" /><meta property="og:site_name" content="william-zxs" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ping -I指定网卡时和路由的关系"/>
+<meta name="twitter:description" content="基本信息 ping的手册中是这么描述-I选项的： -I interface interface is either an address, or an interface name. If interface is an address, it sets source address to specified interface address. If interface in an interface name, it sets source interface to specified interface. For IPv6, when doing ping to a link-local scope address,"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://william-zxs.github.io/posts/ping/" /><link rel="prev" href="https://william-zxs.github.io/posts/start/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Ping -I指定网卡时和路由的关系",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/william-zxs.github.io\/posts\/ping\/"
+        },"genre": "posts","wordcount":  612 ,
+        "url": "https:\/\/william-zxs.github.io\/posts\/ping\/","datePublished": "2023-05-03T23:14:56+08:00","dateModified": "2023-05-03T23:14:56+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "william-zxs"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="william-zxs的网站">william-zxs</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="william-zxs的网站">william-zxs</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ping -I指定网卡时和路由的关系</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>william-zxs</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-03">2023-05-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;612 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本信息">基本信息</a></li>
+    <li><a href="#测试ping">测试ping</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="基本信息">基本信息</h2>
+<p>ping的手册中是这么描述-I选项的：</p>
+<pre tabindex="0"><code>-I interface
+interface is either an address, or an interface name.  If interface is an  address,  it  sets
+source  address  to  specified interface address.  If interface in an interface name, it sets
+source interface to specified interface.  For IPv6, when doing ping  to  a  link-local  scope
+address,  link  specification  (by  the  &#39;%&#39;-notation  in  destination, or by this option) is
+required.
+</code></pre><p>查看ip地址<code>ip a</code></p>
+<pre tabindex="0"><code>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:83:f1:08 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.11.31/24 brd 172.16.11.255 scope global dynamic eth0
+       valid_lft 63489sec preferred_lft 63489sec
+    inet6 fe80::f816:3eff:fe83:f108/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:d2:fe:3c brd ff:ff:ff:ff:ff:ff
+    inet 192.168.32.31/24 brd 192.168.32.255 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816:3eff:fed2:fe3c/64 scope link 
+       valid_lft forever preferred_lft forever
+</code></pre><p>查看路由<code>ip r</code></p>
+<pre tabindex="0"><code>default via 192.168.32.1 dev eth1 
+172.16.11.0/24 dev eth0 proto kernel scope link src 172.16.11.31 
+192.168.32.0/24 dev eth1 proto kernel scope link src 192.168.32.31 
+</code></pre><h2 id="测试ping">测试ping</h2>
+<ol>
+<li><code>ping 192.168.32.1</code> 指定网卡 eth0，是不通的</li>
+</ol>
+<pre tabindex="0"><code>$ ping -I eth0 192.168.32.1 -c 2
+PING 192.168.32.1 (192.168.32.1) from 172.16.11.31 eth0: 56(84) bytes of data.
+--- 192.168.32.1 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 999ms
+</code></pre><ol start="2">
+<li><code>ping 192.168.32.1</code> 指定网卡 eth1，是通的</li>
+</ol>
+<pre tabindex="0"><code>$ ping -I eth1 192.168.32.1 -c 2
+PING 192.168.32.1 (192.168.32.1) from 192.168.32.31 eth1: 56(84) bytes of data.
+64 bytes from 192.168.32.1: icmp_seq=1 ttl=254 time=0.631 ms
+64 bytes from 192.168.32.1: icmp_seq=2 ttl=254 time=0.437 ms
+--- 192.168.32.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 999ms
+rtt min/avg/max/mdev = 0.437/0.534/0.631/0.097 ms
+</code></pre><p><strong>修改默认路由为<code>172.16.11.1</code></strong></p>
+<pre tabindex="0"><code>default via 172.16.11.1 dev eth0 
+172.16.11.0/24 dev eth0 proto kernel scope link src 172.16.11.31 
+192.168.32.0/24 dev eth1 proto kernel scope link src 192.168.32.31
+</code></pre><ol start="3">
+<li>此时<code>ping -I eth0 192.168.32.1 -c 2</code>是通的，因为可以通过默认路由找到<code>192.168.32.1</code></li>
+</ol>
+<pre tabindex="0"><code>$ ping -I eth0 192.168.32.1 -c 2
+PING 192.168.32.1 (192.168.32.1) from 172.16.11.31 eth0: 56(84) bytes of data.
+64 bytes from 192.168.32.1: icmp_seq=1 ttl=253 time=1.16 ms
+64 bytes from 192.168.32.1: icmp_seq=2 ttl=253 time=0.421 ms
+--- 192.168.32.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.421/0.793/1.165/0.372 ms
+</code></pre><ol start="4">
+<li><code>ping -I eth1 192.168.32.1 -c 2</code>是通的，因为可以通过eth1相同网段找到目标。</li>
+</ol>
+<pre tabindex="0"><code>ping -I eth1 192.168.32.1 -c 2
+PING 192.168.32.1 (192.168.32.1) from 192.168.32.31 eth1: 56(84) bytes of data.
+64 bytes from 192.168.32.1: icmp_seq=1 ttl=254 time=0.588 ms
+64 bytes from 192.168.32.1: icmp_seq=2 ttl=254 time=0.446 ms
+--- 192.168.32.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 999ms
+rtt min/avg/max/mdev = 0.446/0.517/0.588/0.071 ms
+</code></pre><h2 id="总结">总结</h2>
+<p><code>ping -I ethX targetIp</code>指定网卡为ethX，如果路由表中存在dev为ethX的路由规则可以将到数据转发到目标targetIp，则可以ping通，否则不能ping通。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-05-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/start/" class="prev" rel="prev" title="我的博客"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>我的博客</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.110.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">william-zxs</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
