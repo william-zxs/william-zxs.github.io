@@ -4,15 +4,23 @@
         <link>https://william-zxs.github.io/</link>
         <description>william-zxs</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>william_zxs@163.com (william-zxs)</managingEditor>
-            <webMaster>william_zxs@163.com (william-zxs)</webMaster><lastBuildDate>Sun, 26 Mar 2023 18:19:00 &#43;0800</lastBuildDate>
+            <webMaster>william_zxs@163.com (william-zxs)</webMaster><lastBuildDate>Wed, 03 May 2023 23:14:56 &#43;0800</lastBuildDate>
             <atom:link href="https://william-zxs.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Ping -I指定网卡时和路由的关系</title>
+    <link>https://william-zxs.github.io/posts/ping/</link>
+    <pubDate>Wed, 03 May 2023 23:14:56 &#43;0800</pubDate>
+    <author>william-zxs</author>
+    <guid>https://william-zxs.github.io/posts/ping/</guid>
+    <description><![CDATA[基本信息 ping的手册中是这么描述-I选项的： -I interface interface is either an address, or an interface name. If interface is an address, it sets source address to specified interface address. If interface in an interface name, it sets source interface to specified interface. For IPv6, when doing ping to a link-local scope address,]]></description>
+</item>
+<item>
     <title>我的博客</title>
     <link>https://william-zxs.github.io/posts/start/</link>
     <pubDate>Sun, 26 Mar 2023 18:19:00 &#43;0800</pubDate>
     <author>william-zxs</author>
     <guid>https://william-zxs.github.io/posts/start/</guid>
-    <description><![CDATA[为什么写博客 帮助自己梳理和消化知识，也可以记录一下自己的旅程，想想看挺棒的。]]></description>
+    <description><![CDATA[为什么写博客 记录一下]]></description>
 </item>
 </channel>
 </rss>
